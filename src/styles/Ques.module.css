@@ -1,0 +1,17 @@
+/* ques */
+.ques_main,
+.ques_main p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ques_main {
+  row-gap: 5vh;
+}
+
+.ques_main button {
+  border: 0px none transparent;
+  border-radius: 25px;
+  height: 35vh;
+}

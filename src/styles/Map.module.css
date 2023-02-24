@@ -1,0 +1,67 @@
+.map  {
+  height: 70%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 4vw;
+  grid-row-gap: 0px;
+  height: 90vh;
+}
+  
+.map figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.first_period { 
+  grid-area: 4 / 1 / 5 / 2; 
+}
+.second_period { grid-area: 3 / 2 / 5 / 3; }
+.third_period { grid-area: 2 / 3 / 5 / 4; }
+.forth_period  { grid-area: 1 / 4 / 5 / 5; }
+
+.map aside {
+  height: 10vh;
+  width: 16vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.first_period aside {
+  background-color: orange;
+}
+.second_period aside {
+  background-color:blue;
+}
+.third_period aside {
+  background-color:violet;
+}
+.forth_period aside {
+  background-color:tomato;
+}
+
+.map a {
+  text-decoration: none;
+}
+
+.map li {
+  list-style-type: none;
+}
+
+.first_column,
+.first_column ul,
+.first_column li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.first_column ul,
+.first_column li {
+  row-gap: 1vh;
+  padding: 0;
+  margin: 0;
+}
+

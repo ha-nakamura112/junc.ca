@@ -1,0 +1,36 @@
+.posts_page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 3vh;
+}
+
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 3vh;
+  row-gap: 3vh;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+}
+
+.post p {
+  width: 40%;
+}
+
+.posts > a {
+  text-decoration: none;
+}
+
+.post button {
+  border: 0px none transparent;
+  background: none;
+}

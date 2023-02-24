@@ -1,0 +1,151 @@
+.main_body {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10vh;
+}
+
+.homelogo {
+  width: 30vh;
+}
+
+.main_header {
+  padding: 0% 3%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.homenav {
+  display: flex;
+  justify-content: center;
+  column-gap: 5%;
+  width: 70%;
+}
+
+.homenav > li {
+  list-style-type: none;
+  /* padding: 1% 2%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 15vh;
+
+}
+
+.homenav a{
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+  width: 100%;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5vh;
+}
+
+.homenav a.active {
+  color: #222;
+}
+
+.homenav li:last-child a{
+  width: 80%;
+  border: 3px solid black;
+  border-radius: 5px;
+}
+
+
+/* footer */
+.main_footer {
+  border-top: 0.2px solid rgba(0, 0, 0, 0.08);
+  height: 35vh;
+  padding: 2% 3% 5% 3%;
+  display: flex;
+  justify-content: center;
+}
+
+.footer_about {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer_about > figure {
+  display: flex;
+  align-items: center;
+  column-gap: 7vh;
+}
+
+.footer_about > p {
+  padding: 1%;
+  line-height: 2;
+  letter-spacing: 1.5;
+  width: 60%;
+  font-size: 18px;
+}
+
+.footer_about img {
+  width: 10vw;
+  height: 10vh;
+  object-fit: cover;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.footer_nav {
+  display: flex;
+  justify-content: center;
+  padding-right: 10vh;
+  padding-top: 5vh;
+}
+
+.footer_nav > ul,
+.footer_contact ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footer_nav li,
+.footer_contact li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+}
+
+.footer_nav li:hover,
+.footer_contact li:hover {
+  cursor: default;
+  transform: translateY(-1px);
+  transition-duration: .3s;
+}
+
+
+.footer_nav li:first-child {
+  color: red;
+}
+.footer_nav a {
+  text-decoration: none;
+}
+
+.footer_contact {
+  padding: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer_contact ul {
+  width: 100%;
+  row-gap: 1.5vh;
+}
+.footer_contact li a{
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  color: black;
+}
