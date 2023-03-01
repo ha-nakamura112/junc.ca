@@ -1,11 +1,11 @@
-import '@/styles/globals.css'
-import Layout from '@/compnents/Layout';
+import '../styles/globals.css'
+import Layout from '../compnents/Layout';
 import Head from 'next/head'
 import { useState } from 'react';
 
 
 export default function App({ Component, pageProps }) {
-  const [ loginuser, setLoginUser ] = useState('loginuser');
+  const [ loginuser, setLoginUser ] = useState(null);
   return (
     <>
       <Head>

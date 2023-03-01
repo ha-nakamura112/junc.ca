@@ -1,19 +1,40 @@
 const server = 'http://localhost:3000';
 
 export const fetchPostsFromDatabase = async () => {
-  const res = await fetch(`${server}/data/json/posts.json`);
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(`${server}/api/getdata`);
+    const data = await res.json();
+    return data.posts;
+  }
+  catch(err) {
+    console.log(err);
+  }
 };
+// export const fetchPostsFromDatabase = async () => {
+//   const res = await fetch(`${server}/data/json/posts.json`);
+//   const data = await res.json();
+//   return data;
+// };
+
 
 export const fetchUsersFromDatabase = async () => {
-  const res = await fetch(`${server}/data/json/users.json`);
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(`${server}/api/getdata`);
+    const data = await res.json();
+    return data.users;
+  }
+  catch(err) {
+    console.log(err);
+  }
 };
 
 export const fetchLoadMapsFromDatabase = async () => {
-  const res = await fetch(`${server}/data/json/loadmap.json`);
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(`${server}/api/getdata`);
+    const data = await res.json();
+    return data.map;
+  }
+  catch(err) {
+    console.log(err);
+  }
 };

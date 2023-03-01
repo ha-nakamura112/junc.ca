@@ -1,19 +1,20 @@
 import { Link } from "react-router-dom";
-import emailjs from '@emailjs/browser';
+// import emailjs from '@next/font/emailjs/browser';
+// import emailjs from '../../../node_modules/next/  next/font/emailjs/browser';
 import styles from "../../css/Home.module.css";
 
 
 export default function Contact(){
 
-let sendEmail = (e) => {
-  e.preventDefault();
-  emailjs.sendForm('service_d9d639i', 'template_iuex2i2', e.target, 'KFsWDbU1ReyaAMxLw')
-    .then((response) => {
-       console.log('SUCCESS!', response.status, response.text);
-    }, (error)=> {
-       console.log('FAILED...', error);
-    });
-}
+// let sendEmail = (e) => {
+//   e.preventDefault();
+//   emailjs.sendForm('service_d9d639i', 'template_iuex2i2', e.target, 'KFsWDbU1ReyaAMxLw')
+//     .then((response) => {
+//        console.log('SUCCESS!', response.status, response.text);
+//     }, (error)=> {
+//        console.log('FAILED...', error);
+//     });
+// }
 
 
   return (

@@ -1,25 +1,50 @@
 import { useEffect, useState } from "react";
-import style from "@/styles/Home.module.css";
-import styles from "@/styles/Posts.module.css";
+import style from "../../styles/Home.module.css";
+import styles from "../../styles/Posts.module.css";
 import Link from 'next/link';
 import { FaHeart } from 'react-icons/fa';
 import { AiOutlineStar } from 'react-icons/Ai';
+import { type } from "os";
 const server = 'http://localhost:3000/'
+import { fetchPostsFromDatabase } from "../common/config.js";
 
-export const getStaticProps = async()=> {
-  const res = await fetch(`${server}/data/json/posts.json`);
-  const data = await res.json();
+
+export async function getStaticProps() {
+  const posts = await fetchPostsFromDatabase();
   return {
     props: {
-      posts : data
-    }
-  }
+      posts,
+    },
+  };
 }
 
 
-export default function AllPost({ posts }){
+export default function AllPost({ posts, loginuser }){
   const [allPosts, setAllPosts] = useState(posts);
   const [searchText, setSearchText] = useState("");
+  const [ userinfo, setUserinfo ] = useState(loginuser);
+  const [ flag, setFlag ] = useState('');
+
+
+  useEffect(()=>{
+    if(!userinfo){
+      let info = sessionStorage.getItem('user');
+      setUserinfo(JSON.parse(info));
+    }
+    if(sessionStorage.getItem('mypost')){
+      posts.map((post)=>{
+        sessionStorage.getItem('mypost').split(',').forEach((val) => {
+          if(post.id == val){
+            post.flag = true;
+          }
+        });
+      })
+    }
+
+    setAllPosts(posts);
+  },[])
+
+
 
   const searchFunc = (e) => {
     e.preventDefault();
@@ -31,6 +56,41 @@ export default function AllPost({ posts }){
       })
       setAllPosts(filteredPosts);
   }
+
+  const handleLike = (e) => {
+    const postId = e.target.id || e.target.parentNode.id;
+    const updatedPosts = allPosts.map((post) => {
+      if (post.id === Number(postId)) {
+        return {
+          ...post,
+          rate: post.rate + 1,
+        };
+      }
+      return post;
+    });
+    setAllPosts(updatedPosts);
+    sessionStorage.setItem('posts', JSON.stringify(updatedPosts));
+  };
+
+  const handleMylist = (e) => {
+    let postId = e.target.parentNode.parentNode.id || e.target.parentNode.id;
+    let mypost = sessionStorage.getItem('mypost');
+    if(mypost == null){
+      mypost = postId;
+    } else {
+      let jsonMylist = mypost.split(',');
+      if (jsonMylist.includes(postId)) { 
+        jsonMylist = jsonMylist.filter((val) => val !== postId);
+        mypost = jsonMylist.toString();
+      } else { 
+        mypost += ","+ postId;  
+      }
+    }
+    console.log(mypost);
+
+    sessionStorage.setItem('mypost', mypost);
+  }
+  
 
   return (
     <>
@@ -48,17 +108,17 @@ export default function AllPost({ posts }){
                   {allpost.e_tag}
                   {allpost.j_tag}
                 </p>
-                <div>
-                  <button>
-                  < FaHeart />
-                    Add to your favorite
-                  </button>
-                  <button>
+                <div >
+                { userinfo ?
+                  <button onClick={(e)=> handleMylist(e)} id={allpost.id}>
+                  < FaHeart className={allpost.flag ? styles.activeBtn : null} />
+                  </button> : null 
+                 }
+                  <button id={allpost.id} onClick={(e)=>handleLike(e)}>
                     < AiOutlineStar/>
                     {allpost.rate}
                   </button>
                 </div>
-
                 <p>{allpost.contents}</p>
                 <Link href= {`/posts/${allpost.title}`}>
                 <img  src={allpost.img}/>

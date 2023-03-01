@@ -1,14 +1,19 @@
 import Link from 'next/link';
-import styles from "@/styles/Nav.module.css";
+import styles from "../styles/Nav.module.css";
 import { useRouter } from 'next/router';
 // import { CiLocationOn } from "react-icons/ci";
 // import { BsEnvelopeOpen } from "react-icons/bs";
 // import { FiPhone } from "react-icons/fi";
 
 
-export default function Header(){
+export default function Header({loginuser, setLoginUser}){
   const loginFlag = false;
   const router = useRouter();
+
+  const Logout = () => {
+    setLoginUser(null);
+    
+  }
   return (
     <>
     <header>
@@ -21,13 +26,19 @@ export default function Header(){
         <img className={ styles.homelogo } src="../../../data/imgs/home/logo.jpeg"/>
       </Link></li>
       <li><Link className={router.pathname == "/posts" ? "active" : ""} href='/posts'>Post</Link></li>
-      { loginFlag === true ?  
+      { loginuser ?  
         <>
-          <li><Link className={router.pathname == "/tbd" ? "active" : ""} href='/tbd'>Q & A</Link></li>
-          <li>Log Out</li>
+          <li>
+            <Link className={router.pathname == "/tbd" ? "active" : ""} href='/tbd'>Q & A</Link>
+          </li>
+          <li>
+            <button onClick={()=>Logout()}>
+              Log Out
+            </button>
+          </li>
         </>
         :
-        <li><Link className={router.pathname == "/common/login" ? "active" : ""} href='/common/login'>Login</Link></li>
+        <li><Link className={ router.pathname == "/common/login" ? "active" : ""} href='/common/login'>Login</Link></li>
       }
     </ul>
   </div>

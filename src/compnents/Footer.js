@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import styles from "@/styles/Nav.module.css";
+import styles from "../styles/Nav.module.css";
 // import { CiLocationOn } from "react-icons/ci";
 // import { BsEnvelopeOpen } from "react-icons/bs";
 // import { FiPhone } from "react-icons/fi";

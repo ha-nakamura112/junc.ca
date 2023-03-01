@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import styles from "@/styles/Home.module.css";
-import style from "@/styles/Ques.module.css";
+import styles from "../../styles/Home.module.css";
+import style from "../../styles/Ques.module.css";
 
 export default function Ques(props){
   let val = 0;
@@ -15,7 +15,7 @@ export default function Ques(props){
   if(sect == 0) val = -3
   else val = -1;
   return (
-    <div  className={styles.homemain}>
+    <div >
       { sect == 0 || sect == 2 ?
         <div className={style.ques_main}>
           <div className={styles.sec_wrapper}>
@@ -71,10 +71,11 @@ export default function Ques(props){
                 <div>
                   <button onClick={()=>calScores( -1 )}>
                     <img src='../../../data/imgs/home/question.png'/>
-                    <p>I have no previous experience</p>
+                    <p>職歴や経験はない</p>
                   </button>
                 </div>
               </div>
+              
           </div>
         </div>
        }

@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import style from "@/styles/Home.module.css";
-import styles from "@/styles/Map.module.css";
+import style from "../../styles/Home.module.css";
+import styles from "../../styles/Map.module.css";
 
 export default function WH(){
   return (
