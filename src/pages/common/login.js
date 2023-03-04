@@ -28,7 +28,7 @@ export default function Login({ setLoginUser, loginuser }){
         setMsg('please fill in the blanks');
         console.log("wrong")
     }else{
-        const apiUrlEndpoint = `http://localhost:3000/api/login`;
+        const apiUrlEndpoint = `${server}/api/login`;
         const postData = {
             method: "Post",
             headers: { "Content-Type": "application/json" },

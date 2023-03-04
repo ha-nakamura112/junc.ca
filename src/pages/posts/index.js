@@ -7,6 +7,7 @@ import { AiOutlineStar } from 'react-icons/Ai';
 import { type } from "os";
 const server = 'http://localhost:3000/'
 import { fetchPostsFromDatabase } from "../common/config.js";
+import { useRouter } from "next/router";
 
 
 export async function getStaticProps() {
@@ -20,6 +21,7 @@ export async function getStaticProps() {
 
 
 export default function AllPost({ posts, loginuser }){
+  const router = useRouter();
   const [allPosts, setAllPosts] = useState(posts);
   const [searchText, setSearchText] = useState("");
   const [ userinfo, setUserinfo ] = useState(loginuser);
@@ -29,7 +31,9 @@ export default function AllPost({ posts, loginuser }){
   useEffect(()=>{
     if(!userinfo){
       let info = sessionStorage.getItem('user');
-      setUserinfo(JSON.parse(info));
+      if(info){
+        setUserinfo(JSON.parse(info));
+      }
     }
     if(sessionStorage.getItem('mypost')){
       posts.map((post)=>{
@@ -40,11 +44,8 @@ export default function AllPost({ posts, loginuser }){
         });
       })
     }
-
     setAllPosts(posts);
   },[])
-
-
 
   const searchFunc = (e) => {
     e.preventDefault();
@@ -86,20 +87,32 @@ export default function AllPost({ posts, loginuser }){
         mypost += ","+ postId;  
       }
     }
-    console.log(mypost);
-
     sessionStorage.setItem('mypost', mypost);
+    const updatedPosts = allPosts.map((post)=>{
+      if(post.id == postId){
+        post.flag = !post.flag;
+      }
+      return post;
+    })
+    setAllPosts([...updatedPosts]);
   }
+  
   
 
   return (
     <>
       <div className={style.homemain}>
         <div className={styles.posts_page}>
-          <form>
-          <input type="text" onChange={(e) => setSearchText(e.target.value)} />
-            <button type="button" onClick={searchFunc}>Search</button>
-          </form>
+          <div>
+            <form>
+            <input type="text" onChange={(e) => setSearchText(e.target.value)} />
+              <button type="button" onClick={searchFunc}>Search</button>
+            </form>
+            {/* add post */}
+            <form>
+
+            </form>
+          </div>
           <div className={styles.posts}>
             { allPosts.map((allpost)=> (
               <div key={allpost.id} className={styles.post}>
@@ -110,7 +123,7 @@ export default function AllPost({ posts, loginuser }){
                 </p>
                 <div >
                 { userinfo ?
-                  <button onClick={(e)=> handleMylist(e)} id={allpost.id}>
+                  <button onClick={(e)=>handleMylist(e)} id={ allpost.id }>
                   < FaHeart className={allpost.flag ? styles.activeBtn : null} />
                   </button> : null 
                  }
@@ -123,6 +136,11 @@ export default function AllPost({ posts, loginuser }){
                 <Link href= {`/posts/${allpost.title}`}>
                 <img  src={allpost.img}/>
               </Link>
+              { userinfo ? 
+                <button onClick={() => router.push("/posts/add")}>
+                  記事を追加する
+                </button> :null
+                 }
               </div>
             )) }
           </div>

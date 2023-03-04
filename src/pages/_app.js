@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import Layout from '../compnents/Layout';
+import Layout from '../components/Layout';
 import Head from 'next/head'
 import { useState } from 'react';
 
@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout>
+      <Layout loginuser = {loginuser} setLoginUser = {setLoginUser}>
         <Component {...pageProps} loginuser = {loginuser} setLoginUser = {setLoginUser} />
       </Layout>
     </>

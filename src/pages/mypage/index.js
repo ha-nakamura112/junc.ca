@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
+import style from "../../styles/myPage.module.css";
 import { fetchPostsFromDatabase } from "../common/config.js";
 import styles from "../../styles/Home.module.css";
 import Link from 'next/link';
+import { useRouter } from "next/router.js";
+import { FaHeart } from 'react-icons/fa';
+import { AiOutlineStar } from 'react-icons/Ai';
 
 export async function getStaticProps() {
   const posts = await fetchPostsFromDatabase();
@@ -14,57 +18,85 @@ export async function getStaticProps() {
 
 export default function MyPage({ posts }) { 
   const [maps, setMaps] = useState([]);
-  const [newMap, setNewMap] = useState([]);
+  const [newMap, setNewMap] = useState(null);
   const [msg, setMsg] = useState("");
   const [ loginuser, setLoginuser] = useState('')
   const [ loginMyPosts, setLoginMyPosts ] = useState([])
+  const router = useRouter();
+  let [ newfilteredPosts, setnewfilteredPosts ] = useState([])
+
   
   
-  const loginUserPost = () => {
+  const makeMap = async () => {
+    const apiUrlEndpoint = `http://localhost:3000/api/myPage`;
+    const postData = {
+      method: "Post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: JSON.parse(sessionStorage.getItem("user")).id,
+      }),
+    };
+    const response = await fetch(apiUrlEndpoint, postData);
+    const res = await response.json();
+    if (res.user[0]) {
+      setMaps(res.map[0]);
+      setLoginuser(res.user[0]);
+      if(!newMap) setNewMap(res.map[0].todo);
+      const posting = await loginUserPost();
+      setLoginMyPosts(posting);
+      // sessionStorage.setItem('mypost', JSON.stringify(posting));
+    } else {
+      console.log("not login");
+    }
+  };
+  
+  useEffect(() => {
+    if (sessionStorage.getItem("user")) {
+      makeMap();
+    }
+  }, [posts, newMap]);
+  
+  const loginUserPost = async() => {
     let filteredPosts = [];
     if (loginuser && loginuser.mylist) { 
       const length = loginuser.mylist.length;
+      const myListObj = await loginuser.mylist.split(',')
       for (let i = 0; i < length; i++) {
-        const filtered = posts.filter((post) => {
-          return post.id === loginuser.mylist[i];
+        const filtered = await posts.filter((post) => {
+          return post.id ==  myListObj[i];
         });
         filteredPosts = filteredPosts.concat(filtered);
+        sessionStorage.setItem('mypost', loginuser.mylist)
       }
     }
     return filteredPosts;
   };
-  
-  
-  
-  useEffect(() => {
-    if (sessionStorage.getItem("user")) {
-      const makeMap = async () => {
-        const apiUrlEndpoint = `http://localhost:3000/api/myPage`;
-        const postData = {
-          method: "Post",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id: JSON.parse(sessionStorage.getItem("user")).id,
-          }),
-        };
-        const response = await fetch(apiUrlEndpoint, postData);
-        const res = await response.json();
-        if (res.user[0]) {
-          setMaps(res.map[0]);
-          setLoginuser(res.user[0]);
-          setNewMap(res.map[0].todo);
-          const posting = loginUserPost();
-          setLoginMyPosts(posting);
-          sessionStorage.setItem('mypost', posting );
-          console.log(posting)
-        } else {
-          console.log("not login");
-        }
-      };
-  
-      makeMap();
+   
+
+  const handleMylist = (e) => {
+    let postId = e.target.parentNode.parentNode.id || e.target.parentNode.id;
+    let mypost = sessionStorage.getItem('mypost');
+    if(mypost == null){
+      mypost = postId;
+    } else {
+      let jsonMylist = mypost.split(',');
+      if (jsonMylist.includes(postId)) { 
+        jsonMylist = jsonMylist.filter((val) => val !== postId);
+        mypost = jsonMylist.toString();
+      } else { 
+        mypost += ","+ postId;  
+      }
     }
-  }, [posts, loginUserPost]);  
+    sessionStorage.setItem('mypost', mypost);
+    const updatedPosts = loginMyPosts.map((post)=>{
+      if(post.id == postId){
+        post.flag = !post.flag;
+      }
+      return post;
+    })
+    setLoginMyPosts([...updatedPosts]);
+  }
+
 
   const addTasks = (e) => { 
     e.preventDefault();
@@ -83,8 +115,10 @@ export default function MyPage({ posts }) {
     if(e.target.checked === false){
       const id = e.target.parentNode.id;
       const arr = newMap.split(',');
-      const newArr = arr.slice(0, id).concat(arr.slice(parseInt(id)+1)); 
+      const newArr = arr.slice(0,id).concat(arr.slice(parseInt(id)+1))
+      console.log(newArr.toString()); 
       setNewMap(newArr.toString());
+      // console.log(newMap)
       e.target.checked = false;
     }
     sessionStorage.setItem('todo', newMap)
@@ -140,12 +174,22 @@ export default function MyPage({ posts }) {
             { loginMyPosts.length > 0 ? loginMyPosts.map((post) => (
               <div key={post.id}>
                 <h1>{post.title}</h1>
-                <p>{post.tag}</p>
+                <p>{post.e_tag}</p>
+                <p>{post.j_tag}</p>
+                <button onClick={(e)=>handleMylist(e)} id={ post.id }>
+                  < FaHeart className={post.flag ? style.activeBtn : null} />
+                  </button>
+                  <button id={post.id} onClick={(e)=>handleLike(e)}>
+                    < AiOutlineStar/>
+                    {post.rate}
+                  </button>
                 <h2>{post.contents}</h2>
-                <button onClick={handleLike}>{post.like} Likes</button>
                 <img src={post.img} alt="" />
                 <button onClick={() => router.push("/posts")}>
                   記事一覧に戻る
+                </button>
+                <button onClick={() => router.push("/posts/add")}>
+                  記事を追加する
                 </button>
               </div>
             )) : null}

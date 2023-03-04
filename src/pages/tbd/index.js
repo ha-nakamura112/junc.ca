@@ -26,6 +26,7 @@ export default function Tbd({ posts }){
   let [img2, setImg2] = useState('../../../data/imgs/home/question.png');
   let [ myposts, setMyPosts ] = useState(null)
 
+  
   let calScores = (val) => {
     setSect( sect + 1);
     setScore( score + val );

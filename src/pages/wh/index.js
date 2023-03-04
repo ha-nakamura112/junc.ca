@@ -17,9 +17,13 @@ export default function WH(){
               <h3>情報収集</h3>
               <ul>
                 <li>生活費・職・都市・目標</li>
+                {/*  */}
                 <li>語学学校</li>
                 <li>クレジットカード</li>
                 <li>ビザ</li>
+                <li>住む場所</li>
+                {/* 学校と働き始めてから */}
+                
               </ul>
             </div>
           </div>
@@ -36,7 +40,6 @@ export default function WH(){
                 <li>航空券</li>
                 {/* 語学学校、ホームステイ、滞在先 */}
                 <li>各種申し込み</li>
-                <li>生活費計算</li>
                 <li>仕事探し</li>
               </ul>
             </div>
@@ -55,6 +58,10 @@ export default function WH(){
                 <li>やるべきことリストづくり</li>
                 <li>海外保険加入</li>
                 <li>お金の準備</li>
+                {/* wiseとかsonny銀行、キャッシュカードでおろせるところもある*/}
+                <li>携帯のSIMカード</li>
+                <li>運転免許証</li>
+                {/* evoを */}
               </ul>
             </div>
           </div>

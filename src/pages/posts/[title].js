@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { FaHeart } from 'react-icons/fa';
+import { AiOutlineStar } from 'react-icons/Ai';
 import style from "../../styles/Home.module.css";
 import Link from "next/link";
 import { fetchPostsFromDatabase } from "../common/config.js";
@@ -28,15 +30,20 @@ export async function getStaticPaths() {
 }
 
 
-export default function PostDetail({ posts }) {
+export default function PostDetail({ posts, loginuser }) {
   const router = useRouter();
   const { title } = router.query;
 
   const [likes, setLikes] = useState();
   const [post, setPost] = useState();
+  const [ userinfo, setUserinfo ] = useState(loginuser);
 
   useEffect(() => {
     posts.map((post)=> {
+      if(!userinfo){
+        let info = sessionStorage.getItem('user');
+        setUserinfo(JSON.parse(info));
+      }
       if(post.title == title){
         //like function
         setLikes(post.likes);
@@ -58,7 +65,6 @@ export default function PostDetail({ posts }) {
       return post;
     });
     setAllPosts(updatedPosts);
-    //to update posts database at very last time
     sessionStorage.setItem('posts', JSON.stringify(updatedPosts))
   };
 
@@ -75,15 +81,15 @@ export default function PostDetail({ posts }) {
           <p>{post.e_tag}</p>
           <h2>{post.contents}</h2>
           <div >
-            { loginuser ?
-                  <button onClick={(e)=> handleMylist(e)} id={allpost.id}>
+            { userinfo ?
+                  <button onClick={(e)=> handleMylist(e)} id={post.id}>
               < FaHeart />
                Add to your favorite
               </button> : null 
             }
-            <button id={allpost.id} onClick={(e)=>handleLike(e)}>
+            <button id={post.id} onClick={(e)=>handleLike(e)}>
               < AiOutlineStar/>
-              {allpost.rate}
+              { post.rate }
             </button>
           </div>
           <img src={post.img} />
