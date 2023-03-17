@@ -24,9 +24,9 @@ export default function Header({ loginuser, setLoginUser }){
       <div className={styles.main_body}>
         <div className={styles.main_header}>
           <ul className={styles.homenav}>
-            <li><Link className={router.pathname === "/wh" ? styles.active : ""} href='/wh'>Working Holiday</Link></li>
+            <li><Link className={router.pathname === "/wh" ? styles.active : ""} href='/wh'>ワーキングホリデー</Link></li>
             <li><Link className={router.pathname === "/coop" ? styles.active : ""} href='/coop'>Coop</Link></li>
-            <li><Link href='/'><img className={styles.homelogo} src="/data/imgs/home/logo.jpeg" /></Link></li>
+            <li className={styles.homelogo}><Link href='/'><img src="/data/imgs/home/logo2.jpeg" /></Link></li>
             <li><Link className={router.pathname === "/posts" ? styles.active : ""} href='/posts'>Post</Link></li>
             { loginuser ?  
               <>

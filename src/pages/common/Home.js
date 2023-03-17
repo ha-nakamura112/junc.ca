@@ -5,7 +5,7 @@ export default function Home(){
   return (
       <div  className={styles.homemain}>
         <div>
-          <h1>What are you looking for?</h1>
+          <h1>なりたい自分になりに行こう！</h1>
         </div>
         <div className={styles.secmain}>
           <div className={styles.home_opt}>
@@ -13,7 +13,7 @@ export default function Home(){
             <Link to="/coop">
               <div>
                 <img src="../../../data/imgs/home/travel.png"/>
-                <p>Working Holiday</p>
+                <p>ワーキングホリデー</p>
               </div>
             </Link>
           </div>
@@ -22,7 +22,7 @@ export default function Home(){
             <Link to="/coop">
               <div>
                 <img src="../../../data/imgs/home/study-owl.png"/>
-                <p>Coop</p>
+                <p>コープ留学</p>
               </div>
             </Link>
           </div>
@@ -31,7 +31,7 @@ export default function Home(){
           <Link to="/tbd">
               <div>
                 <img src="../../../data/imgs/home/question.png"/>
-                <p>Not Sure</p>
+                <p>迷い中...</p>
               </div>
             </Link>
           </div>

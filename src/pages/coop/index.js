@@ -14,7 +14,7 @@ export default function CoopMap(){
               <aside>5 ~ 12 months</aside>
             </Link>
             <div className={styles.first_column}>
-              <h3>Making basement</h3>
+              <h3>基礎固め</h3>
               <ul>
                 <li>Study abroad preparation</li>
                 <li>Study abroad consultation</li>
