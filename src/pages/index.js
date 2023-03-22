@@ -1,26 +1,35 @@
-import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.css'
+import { Inter } from '@next/font/google';
 import Link from 'next/link';
-// import Layout from '@/compnents/Layout';
-
+import styles from '../styles/Home.module.css';
+import React, {useState} from 'react';
 const inter = Inter({ subsets: ['latin'] })
 
 
 export default function Home(){
+  const [showFlightPath, setShowFlightPath] = useState(false);
+
+  const handleAnimationEnd = () => {
+    setShowFlightPath(true);
+  };
+
+
   return (
     <>
-      <div  className="font-851">
+      <div  className={styles.main}>
         <div className={styles.sky}>
           <div className={styles.cloud}></div>
           <div className={styles.cloud2}></div>
           <div className={styles.cloud3}></div>
           <div className={styles.cloud_bottom}></div>
           <div className={styles.plane}>
-            <img src='../../data/imgs/home/plane.png'></img>
+            <img 
+            src='../../data/imgs/home/plane.png'
+            onAnimationEnd={handleAnimationEnd}
+            ></img>
           </div>
-          <div className={styles.airplanetrail}></div>
-          <div className={styles.hometxt}>
-            <h1>Select choices to go beyond your future self</h1>
+          {showFlightPath && <div className="flight-path visible" />}
+          {!showFlightPath && <div className="flight-path" />}       <div className={styles.hometxt}>
+            <h1>Leap Abroad</h1>
           </div>
         </div>
         <div  className={styles.homemain}>

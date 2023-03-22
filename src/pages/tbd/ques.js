@@ -19,17 +19,15 @@ export default function Ques(props){
       { sect == 0 || sect == 2 ?
         <div className={style.ques_main}>
           <div className={styles.sec_wrapper}>
-              <div className={styles.home_opt}>
+              <div className={style.que_opt}>
                 {/* q1 */}
-                <div>
                   <button onClick={()=>calScores( +1 )}>
                     <img src={img1}/>
                     <p>{opt1}</p>
                   </button>
-                </div>
               </div>
               {/* q2 */}
-              <div className={styles.home_opt}>
+              <div className={style.que_opt}>
                 <div>
                   <button onClick={()=>calScores( val )}>
                     <img src={img2}/>
@@ -41,14 +39,19 @@ export default function Ques(props){
           </div>
           { sect == 0 ? 
               <div>
-                <p>You should be from 18 to 30, if you want to get working holiday visa.</p>
+                <p>ワーキングホリデーを取るためには様々な条件があります。詳しい内容は
+                  <Link href='https://www.canada.ca/en/immigration-refugees-citizenship/services/work-canada/iec1.html?adobe_mc_sdid=SDID%3D04A952EAE80C2AF5-060A493156BC56EF%7CMCORGID%3DA90F2A0D55423F537F000101%40AdobeOrg%7CTS%3D1679514479&adobe_mc_ref=https%3A%2F%2Fwww.google.com%2F' target='_blank'>
+                  こちら
+                  </Link>
+                から
+                </p>
               </div> : null
           }
         </div>
           :
         <div className={style.ques_main}>
           <div className={styles.sec_wrapper}>
-              <div className={styles.home_opt}>
+          <div className={style.que_opt}>
                 {/* q1 */}
                 <div>
                   <button onClick={()=>calScores( 4 )}>
@@ -70,7 +73,7 @@ export default function Ques(props){
               <div className={styles.home_opt}>
                 <div>
                   <button onClick={()=>calScores( -1 )}>
-                    <img src='../../../data/imgs/home/question.png'/>
+                    <img src='../../../data/imgs/tbd/que2-3.png'/>
                     <p>職歴や経験はない</p>
                   </button>
                 </div>

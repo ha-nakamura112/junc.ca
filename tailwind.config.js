@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         851: './fonts/fonts851マカポップ.ttf',
-        nagomi: "./public/fonts/NagomiGokubosoGothic-ExtraLight.otf"
+        nagomi: "./fonts/NagomiGokubosoGothic-ExtraLight.otf"
       }
     },
   },

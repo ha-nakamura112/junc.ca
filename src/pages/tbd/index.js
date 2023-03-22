@@ -22,8 +22,8 @@ export default function Tbd({ posts }){
   let [sect, setSect] = useState(0);
   let [opt1, setOpt1] = useState('何か勉強したいことがある');
   let [opt2, setOpt2] = useState("特に勉強したいことはない・英語を極めたい");
-  let [img1, setImg1] = useState('../../../data/imgs/home/study-owl.png');
-  let [img2, setImg2] = useState('../../../data/imgs/home/question.png');
+  let [img1, setImg1] = useState('../../../data/imgs/tbd/que1-1.png');
+  let [img2, setImg2] = useState('../../../data/imgs/tbd/que1-2.png');
   let [ myposts, setMyPosts ] = useState(null)
 
   
@@ -34,15 +34,15 @@ export default function Tbd({ posts }){
         case 0 :
           setOpt1("学びたいことに関連した職歴がある");
           setOpt2("職歴はあるが、関連はしてない");
-          setImg1('../../../data/imgs/home/question.png');
-          setImg2('../../../data/imgs/home/question.png');
+          setImg1('../../../data/imgs/tbd/que2-1.png');
+          setImg2('../../../data/imgs/tbd/que2-2.png');
         break;
 
         case 1 :
           setOpt1("英語に自信がある");
           setOpt2("英語にはあまり自信がない");
-          setImg1('../../../data/imgs/home/travel.png');
-          setImg2('../../../data/imgs/home/travel.png');
+          setImg1('../../../data/imgs/tbd/que3-1.png');
+          setImg2('../../../data/imgs/tbd/que3-2.png');
         break;
 
       }

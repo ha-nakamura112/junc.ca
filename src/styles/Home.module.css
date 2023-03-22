@@ -1,13 +1,15 @@
-
+.main {
+  width: 100%;
+}
 
 .sky {
-  background-color: var(--color-blue); 
+  background-color: var(--color-blue-fifth); 
   height: 80vh;
   position: relative;
   width: 100vh;
   overflow: hidden;
 }
-
+/* 
 .plane img {
   background-repeat: no-repeat;
   background-size: cover;
@@ -19,13 +21,76 @@
   animation-duration: 3s;
   animation-timing-function: linear;
   animation-iteration-count:unset;
+} */
+
+
+.plane img{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: plane 3s linear;
+  width: 50vw;
 }
+
+.flight_path {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #fff;
+  opacity: 0.5;
+  transition: width 3s linear;
+  z-index: 10;
+}
+
+
+.flight-path.visible {
+  width: 100%;
+}
+
+.plane:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 10px;
+  background-color: #fff;
+  transform-origin: top center;
+  animation: planeTrail 1.5s ease-out 1s forwards;
+  opacity: 0;
+}
+
+@keyframes fly {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(100%, -100%);
+  }
+}
+
+@keyframes planeTrail {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+
+
 
 .cloud {
   position: absolute;
   width: 300px;
   height: 150px;
-  background: var(--color-white);
+  background: var(--color-cloud);
   border-radius:60% 60% 0 0;
   bottom: 0;
 }
@@ -53,9 +118,9 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 100vh;
   height: 50px;
-  background: var(--color-white);
+  background: var(--color-cloud);
   border-radius: 50% 50% 0 0 / 100px 100px 0 0;
 }
 
@@ -71,38 +136,21 @@
 
 .hometxt {
   position: absolute;
-  bottom: 50px;
-  right: 10px;
+  bottom: 100px;
+  right: 80px;
 }
 
 .hometxt h1 {
-  font-size: 22px;
+  font-size: 28px;
 }
-
+/* 
 .homebg {
   width: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
-.airplane-trail {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-right: 400px solid transparent;
-  border-top: 40px solid #ccc;
-  opacity: 0.5;
-  animation: plane 2s linear infinite;
-  z-index: 1;
-}
-
-@keyframes trail {
-  from { transform: translateY(0) rotate(-45deg); }
-  to { transform: translateY(-100vh) rotate(-45deg); }
-}
 
 @keyframes plane {
   0% {
@@ -120,8 +168,9 @@
   flex-direction: column;
   row-gap: 10vh;
   align-items: center;
+  justify-content: center;
   padding-bottom: 20vh;
-  width: 90vh;
+  width: 95vh;
 }
 
 .secmain {
@@ -157,15 +206,15 @@
 }
 
 .home_opt .coop1 {
-  left: -50px;
-  top:-100px;
+  left: -5vh;
+  top: -4rem;
   width: 45vh;
   overflow: visible;
 }
 
 .home_opt .coop2 {
   overflow: hidden;
-  right: -10%;
+  right: -4rem;
   bottom:-60px;
   width: 30vw;
   height: 45vh;
@@ -201,20 +250,23 @@
 
 .home_opt .wh1 {
   height: 35vh;
-  left: -80px;
-  top:-0px;
+  left: -8vh;
+  top:0;
 }
 
 .home_opt .wh2 {
-  right: -65px;
-  bottom: -70px;
+  right: -4rem;
+  bottom: -6vh;
   height: 55vh;
+  width: 65vw;
   object-fit:cover;
+  object-position: 50% ;
+  overflow: hidden;
 }
 
 .home_opt .canada1 {
-  right: -100px;
-  /* top: -100px; */
+  left: 10rem;
+  top:6vh;
   object-fit:contain;
   height: 45vh;
   overflow: visible;
@@ -225,7 +277,7 @@
   object-fit:contain;
   position: absolute;
   top: -120px;
-  left: -140px;
+  left: -120px;
 }
 
 .home_opt:nth-child(3) p {
