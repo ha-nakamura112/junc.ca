@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react"
-import styles from "../../styles/Home.module.css";
+import home from "../../styles/Home.module.css";
 import Ques from "./ques";
 import { fetchPostsFromDatabase } from "../common/config.js";
 import { useRouter } from "next/router";
+import style from "../../styles/Ques.module.css"
+import styles from '../../styles/Posts.module.css';
+import { FaHeart } from 'react-icons/fa';
+import { AiOutlineStar } from 'react-icons/Ai';
+import Link from "next/link";
 
 
 export async function getStaticProps() {
@@ -25,6 +30,22 @@ export default function Tbd({ posts }){
   let [img1, setImg1] = useState('../../../data/imgs/tbd/que1-1.png');
   let [img2, setImg2] = useState('../../../data/imgs/tbd/que1-2.png');
   let [ myposts, setMyPosts ] = useState(null)
+
+  
+  const handleLike = (e) => {
+    const postId = e.target.id || e.target.parentNode.id;
+    const updatedPosts = myposts.map((post) => {
+      if (post.id === Number(postId)) {
+        return {
+          ...post,
+          rate: post.rate + 1,
+        };
+      }
+      return post;
+    });
+    setMyPosts(updatedPosts);
+    sessionStorage.setItem('posts', JSON.stringify(updatedPosts));
+  };
 
   
   let calScores = (val) => {
@@ -54,7 +75,7 @@ export default function Tbd({ posts }){
     let postList = [];
     switch(score){
       case -3 :
-        setGoal('ワーキングホリデーがおすすめ');
+        setGoal('ワーキングホリデーがおすすめ！カナダで日本では出来ない様々な体験をしよう！');
         flag = 0;
         break;
       case -1 :
@@ -64,12 +85,12 @@ export default function Tbd({ posts }){
         break;
       case 1 || 5 || 3 :
         // hospitality寄り
-        setGoal('分野によります、経験なしでコープのインターンを手に入れるのは難しいので経験を得てから学ぶもしくは学ぶ分野を変えてみるのもいいでしょう');
+        setGoal('ホスピタリティなどの経験が無くても比較的簡単にチャレンジできる分野がおすすめ！カナダで経験を得てから新しい自分にステップアップしよう！');
         flag = 1;
         break;
       case 4 :
-        //degima yori
-        setGoal('coop is good for you, make sure your school peogram in detail');
+        //degital marketing or IBM
+        setGoal('デジタルマーケティングやIBMなどのコースがおすすめ！');
         flag = 1;
         break;
       case 6 :
@@ -90,33 +111,46 @@ export default function Tbd({ posts }){
   useEffect(()=>setScoreFun(), [sect]);
 
   return (
-    <div className={styles.homemain}>
+    <div className={home.homemain}>
       { sect < 3 && score > -3 ?
       <Ques opt1 = {opt1} opt2 = {opt2} img1 = {img1} img2 = {img2} setSect = { setSect } sect = {sect} calScores = { calScores } score = { score }/>
       :
-      <div>
-        <div>
-          <h1>{ goal }</h1>
+      <div className={home.homemain}>
+        <div className={style.goal_msg}>
+          { goal }
         </div>
         {/* related articles */}
-        <div>
+        <div className={ styles.posts }>
           { myposts !== null ? 
-            myposts.map((mypost)=> {
+            myposts.map((allpost)=> {
               return (
+                <div key={allpost.id} className={styles.post}>
+                <h3>{allpost.title}</h3>
+                <p className={styles.tag}>
+                  {allpost.e_tag}
+                  {allpost.j_tag}
+                </p>
                 <div>
-                  <h1>{mypost.title}</h1>
-                  <p>{mypost.j_tag}</p>
-                  <p>{mypost.e_tag}</p>
-                  <h2>{mypost.contents}</h2>
-                  <button>
-                  {/* <button onClick={handleLike}> */}
-                    {mypost.rate} Likes
-                    </button>
-                  <img src={mypost.img} />
-                  <button onClick={()=>router.push("/posts")}>
-                    記事一覧
+                {/* { userinfo ?
+                  <button onClick={(e)=>handleMylist(e)} id={ allpost.id }>
+                  < FaHeart className={allpost.flag ? styles.activeBtn : null} />
+                  </button> : null 
+                 } */}
+                  <button id={allpost.id} onClick={(e)=>handleLike(e)}>
+                    < AiOutlineStar/>
+                    {allpost.rate}
                   </button>
                 </div>
+                <p className={styles.content}>{allpost.contents}</p>
+                <Link href= {`/posts/${allpost.title}`}>
+                <img  src={allpost.img}/>
+              </Link>
+              {/* { userinfo ? 
+                <button onClick={() => router.push("/posts/add")}>
+                  記事を追加する
+                </button> :null
+                 } */}
+              </div>
               )
             }) : null
            }

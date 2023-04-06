@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { FaHeart } from 'react-icons/fa';
 import { AiOutlineStar } from 'react-icons/Ai';
 import { type } from "os";
-const server = 'http://localhost:3000/'
 import { fetchPostsFromDatabase } from "../common/config.js";
 import { useRouter } from "next/router";
+import {serverUrl} from "../common/config";
 
 
 export async function getStaticProps() {
@@ -96,6 +96,9 @@ export default function AllPost({ posts, loginuser }){
     })
     setAllPosts([...updatedPosts]);
   }
+  const url = '/data/img/home/canada1.png'
+
+  console.log(`${serverUrl}${url}`)
   
   
 
@@ -103,25 +106,23 @@ export default function AllPost({ posts, loginuser }){
     <>
       <div className={style.homemain}>
         <div className={styles.posts_page}>
-          <div>
-            <form>
+          <form className={styles.search_input}>
             <input type="text" onChange={(e) => setSearchText(e.target.value)} />
               <button type="button" onClick={searchFunc}>Search</button>
-            </form>
-            {/* add post */}
-            <form>
-
-            </form>
-          </div>
+          </form>
           <div className={styles.posts}>
             { allPosts.map((allpost)=> (
               <div key={allpost.id} className={styles.post}>
                 <h3>{allpost.title}</h3>
+                <span className={styles.tag}>
                 <p>
-                  {allpost.e_tag}
                   {allpost.j_tag}
                 </p>
-                <div >
+                <p >
+                  {allpost.e_tag}
+                </p>
+                  </span>
+                <div>
                 { userinfo ?
                   <button onClick={(e)=>handleMylist(e)} id={ allpost.id }>
                   < FaHeart className={allpost.flag ? styles.activeBtn : null} />
@@ -132,9 +133,9 @@ export default function AllPost({ posts, loginuser }){
                     {allpost.rate}
                   </button>
                 </div>
-                <p>{allpost.contents}</p>
+                <p className={styles.content}>{allpost.contents}</p>
                 <Link href= {`/posts/${allpost.title}`}>
-                <img  src={allpost.img}/>
+                <img  src={serverUrl+allpost.img}/>
               </Link>
               { userinfo ? 
                 <button onClick={() => router.push("/posts/add")}>

@@ -1,20 +1,51 @@
 :root {
-  --color-yellow:#E8D575;
-  --color-red:#E88F9D;
+  --color-yellow: #E8D575;
+  --color-red: #E88F9D;
   --color-green: #00A56A;
-  --color-blue:#0072C6;
-  --color-blue-second:#1E90FF;
-  --color-blue-third:#2E64FE;
-  --color-blue-forth:rgba(18, 18, 249, 0.7);
-  --color-blue-fifth:#87CEEB;
-  --color-white:#ffffff;
-  --color-cloud:rgba(255, 255, 255, .8);
+  --color-blue: #0068BF;
+  --color-lightblue: #75c2e0;
+  --color-blue-second: #1E90FF;
+  --color-blue-third: #2E64FE;
+  --color-blue-forth: rgba(18, 18, 249, 0.7);
+  --color-blue-fifth: #0072C6;
+  --color-white: #ffffff;
+  --color-cloud: rgba(255, 255, 255, 0.9);
+  --color-bg: whitesmoke;
+  --box-shadow-regular: rgba(0, 0, 0, 0.2) 0px 5px 15px;
 }
+
+@media screen and (min-width: 768px) {
+  :root {
+    --regular-width: 500px;
+    --regular-plane: 200px;
+    --regular-height: 85vh
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --regular-width: 100vh;
+    --regular-plane: 50vw;
+    --regular-height: 100vh
+  }
+  
+}
+
+
+@font-face {
+  font-family: 'karakaze';
+  src: url('../../public/fonts/hannotate-sc-regular.otf') format('opentype');
+  }
+
 
 html,
 body {
   padding: 0;
   margin: 0;
+  font-family: 'karakaze', sans-serif;
+  font-style: normal;
+  font-weight: 400;
 }
 
 p {
@@ -64,3 +95,5 @@ p {
 .img {
   width: 40vh;
 }
+
+

@@ -22,7 +22,8 @@ export default function Header({ loginuser, setLoginUser }){
   return (
     <header>
       <div className={styles.main_body}>
-        <div className={styles.main_header}>
+        <div
+        className={router.pathname === "/common/login" || router.pathname === "/common/signup" ? styles.main_header_login : router.pathname === "/" ? styles.main_header : styles.main_header_color}>
           <ul className={styles.homenav}>
             <li><Link className={router.pathname === "/wh" ? styles.active : ""} href='/wh'>ワーキングホリデー</Link></li>
             <li><Link className={router.pathname === "/coop" ? styles.active : ""} href='/coop'>Coop</Link></li>

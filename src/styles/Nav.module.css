@@ -5,17 +5,42 @@
 }
 
 .homelogo img {
-  width: 23vh;
   object-fit: cover;
 }
 
-.main_header {
+@media screen and(max-width:768px) {
+  .homelogo img {
+    width: 23vh;
+  }
+}
+
+@media screen and(min-width:768px) {
+  .homelogo img {
+    width: 13vh;
+  }
+}
+
+.main_header,
+.main_header_login,
+.main_header_color {
   padding: 0% 2%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--color-blue);
-  width: 100vh;
+  width: var(--regular-width);
+}
+
+.main_header {
+  background-color: var(--color-blue);
+}
+
+.main_header_color {
+  background-color: var( --color-lightblue)  ;
+}
+
+.main_header_login {
+  background-color: var(--color-white);
 }
 
 .homenav {
@@ -61,16 +86,31 @@
 
 
 /* footer */
-.main_footer {
+.main_footer,
+.main_footer_fix,
+.main_footer_color {
   border-top: 0.2px solid rgba(0, 0, 0, 0.08);
-  background-color: var(--color-blue);
   color: var(--color-white) ;
   height: 55vh;
   padding: 2% 3% 5% 3%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100vh;
+  width: var(--regular-width);
+} 
+
+.main_footer {
+  background-color: var(--color-blue);
+}
+
+.main_footer_fix {
+  position: fixed;
+  bottom: 0;
+  background-color: var(--color-blue);
+}
+
+.main_footer_color {
+  background-color: var(--color-lightblue);
 }
 
 .footer_about {

@@ -1,12 +1,53 @@
 import Link from 'next/link';
 import style from "../../styles/Home.module.css";
 import styles from "../../styles/Map.module.css";
+// import RoundGraph from '../common/RoundGraph';
+
+import {Line, Pie, Doughnut} from 'react-chartjs-2';
+import Chart from 'chart.js/auto';
+
+
+const data = {
+	datasets: [{
+		data: [23, 23, 23, 23],
+		backgroundColor: [
+      '#82E0AA',      //2
+      '#ABEBC6',      //3
+      '#D5F5E3',      //4
+      '#10e16766', //1
+		],
+		hoverBackgroundColor: [
+		'#00A56A'
+		],
+    cutout:[
+      '30%'
+    ],
+    borderWidth: [
+      '20'
+    ]
+	}]
+};
+
+
+
+
 
 export default function WH(){
   return (
     <div  className={style.homemain}>
-        <div className={styles.map}>
-          <div className={styles.first_period}>
+      <div className={ styles.top}>
+        <div className={styles.description}>
+          <h1>ワーキングホリデビザとは？</h1>
+          <p>ワーキングホリデーは、18歳以上30歳未満の日本人がカナダに1年間滞在しながら、現地での短期雇用を許可される制度です。ビザを取得して有効期間内に複数の職場で働き、カナダの文化・生活を体験することができます。海外経験や語学力の向上、異文化交流など、貴重な経験を得ることができます。</p>
+        </div>
+      </div>
+        <div className={styles.pie}>
+            <Doughnut
+                data={data}
+                width={500}
+                height={500}
+            />
+             <div className={styles.first_period}>
             <figure>
               <img src="../../../data/imgs/home/question.png"/>
             </figure>
@@ -14,16 +55,12 @@ export default function WH(){
               <aside>6 ~ 12 か月前</aside>
             </Link>
             <div className={styles.first_column}>
-              <h3>情報収集</h3>
+              <h2>情報収集</h2>
               <ul>
-                <li>生活費・職・都市・目標</li>
-                {/*  */}
-                <li>語学学校</li>
-                <li>クレジットカード</li>
+                <li>都市</li>
+                <li>目標・学校</li>
+                <li>資金準備</li>
                 <li>ビザ</li>
-                <li>住む場所</li>
-                {/* 学校と働き始めてから */}
-                
               </ul>
             </div>
           </div>
@@ -35,7 +72,7 @@ export default function WH(){
               <aside>3～6か月前</aside>
             </Link>
             <div className={styles.first_column}>
-              <h3>Making basement</h3>
+              <h3>手続きスタート</h3>
               <ul>
                 <li>航空券</li>
                 {/* 語学学校、ホームステイ、滞在先 */}
@@ -80,13 +117,7 @@ export default function WH(){
               </ul>
             </div>
           </div>
-      </div>
-      <div>
-        {/* link for the latest conditions of working holiday */}
-        <p>
-          Ckeck and Confirm here before applying
-        </p>
-      </div>
+        </div>
     </div>
   )
 }

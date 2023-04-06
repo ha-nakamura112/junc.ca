@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import style from "../../styles/myPage.module.css";
 import { fetchPostsFromDatabase } from "../common/config.js";
-import styles from "../../styles/Home.module.css";
+import style from "../../styles/myPage.module.css";
+import Home from "../../styles/Home.module.css";
 import Link from 'next/link';
 import { useRouter } from "next/router.js";
 import { FaHeart } from 'react-icons/fa';
 import { AiOutlineStar } from 'react-icons/Ai';
+import { RxCross2 } from 'react-icons/Rx';
+import styles from '../../styles/Posts.module.css';
+import { serverUrl } from "../common/config.js";
 
 export async function getStaticProps() {
   const posts = await fetchPostsFromDatabase();
@@ -24,11 +27,13 @@ export default function MyPage({ posts }) {
   const [ loginMyPosts, setLoginMyPosts ] = useState([])
   const router = useRouter();
   let [ newfilteredPosts, setnewfilteredPosts ] = useState([])
+  const [ delFlag, setDelFlag ] = useState(true)
+  const [ dob, setDob ] = useState('')
 
   
   
   const makeMap = async () => {
-    const apiUrlEndpoint = `http://localhost:3000/api/myPage`;
+    const apiUrlEndpoint = `${serverUrl}/api/myPage`;
     const postData = {
       method: "Post",
       headers: { "Content-Type": "application/json" },
@@ -41,6 +46,10 @@ export default function MyPage({ posts }) {
     if (res.user[0]) {
       setMaps(res.map[0]);
       setLoginuser(res.user[0]);
+      const date = new Date(res.user[0].dob);
+const formattedDate = date.toISOString().substring(0, 10);
+      setDob(formattedDate);
+
       if(!newMap) setNewMap(res.map[0].todo);
       const posting = await loginUserPost();
       setLoginMyPosts(posting);
@@ -51,6 +60,8 @@ export default function MyPage({ posts }) {
   };
   
   useEffect(() => {
+    console.log(!newMap)
+    console.log(typeof newMap)
     if (sessionStorage.getItem("user")) {
       makeMap();
     }
@@ -104,6 +115,7 @@ export default function MyPage({ posts }) {
       const newTasks = e.target[0].value + "," + newMap;
       sessionStorage.setItem('todo',newTasks);
       setNewMap(newTasks);  
+      setMsg(null)
     }else{
       setMsg('今日のやることを入力してください')
     }
@@ -120,6 +132,8 @@ export default function MyPage({ posts }) {
       setNewMap(newArr.toString());
       // console.log(newMap)
       e.target.checked = false;
+    }else if(e.target.checked === true){
+      setDelFlag(false)
     }
     sessionStorage.setItem('todo', newMap)
   };
@@ -144,54 +158,77 @@ export default function MyPage({ posts }) {
   };
 
   return (
-    <div className={styles.homemain}>
+    <div className={Home.homemain}>
       { loginuser &&
       <div>
+        <div>
+          <h3>{ loginuser.name }</h3>
+          <h5>{ dob }</h5>
+        </div>
         { maps ? 
-              <div>
-                { newMap.length > 0 &&
+              <div className={style.todaylist}>
+                { newMap &&  
+                <h1>Today <span>{newMap.split(',').length}</span></h1> }
+                <form className={style.add_form} onSubmit={addTasks}>
+                  <input type="text" placeholder="今日のタスクを追加" />
+                  <button type="submit">＋</button>
+                </form>
+                <p>{msg}</p>
+                { newMap?.length > 0 &&
                   toJson(newMap).map((todo,idx) => (
-                    <div key={idx}>
-                      <ul>
+                      <ul className={style.todo} key={idx}>
                         <li id={idx}>
+                        <input type="checkbox" onChange={(e) => delTodo(e)} />
+                          {/* { delFlag ? 
+                          <input type="checkbox" onChange={(e) => delTodo(e)} /> :
+                          < RxCross2 /> } */}
                           {todo}
-                          <input type="checkbox" onChange={(e) => delTodo(e)} />
                         </li>
                       </ul>
-                    </div>
                   ))}
-                <form onSubmit={addTasks}>
-                  <input type="text" placeholder="今日の予定を追加" />
-                  <button type="submit">追加</button>
-                  {msg}
-                </form>
-                <h1>{maps.month}</h1>
-                <h1>{maps.today}</h1>
-                <h1>{maps.year}</h1>
+                <div className={style.goals}>
+                  <div className={style.goal}>
+                    <p>今日の目標: </p>
+                    <h2>{maps.today}</h2>
+                  </div>
+                  <div className={style.goal}>
+                    <p>1か月の目標: </p>
+                    <h2>{maps.month}</h2>
+                  </div>
+                  <div className={style.goal}>
+                    <p>1年の目標: </p>
+                    <h2>{maps.year}</h2>
+                  </div>
+                  <button >目標を編集する</button>
+                </div>
               </div>
         : null } 
-          <div>
-            { loginMyPosts.length > 0 ? loginMyPosts.map((post) => (
-              <div key={post.id}>
-                <h1>{post.title}</h1>
-                <p>{post.e_tag}</p>
-                <p>{post.j_tag}</p>
-                <button onClick={(e)=>handleMylist(e)} id={ post.id }>
-                  < FaHeart className={post.flag ? style.activeBtn : null} />
-                  </button>
-                  <button id={post.id} onClick={(e)=>handleLike(e)}>
-                    < AiOutlineStar/>
-                    {post.rate}
-                  </button>
-                <h2>{post.contents}</h2>
-                <img src={post.img} alt="" />
-                <button onClick={() => router.push("/posts")}>
-                  記事一覧に戻る
-                </button>
-                <button onClick={() => router.push("/posts/add")}>
-                  記事を追加する
-                </button>
-              </div>
+          <div className={styles.posts}>
+            { loginMyPosts.length > 0 ? loginMyPosts.map((allpost) => (
+                   <div key={allpost.id} className={styles.post}>
+                     <h3>{allpost.title}</h3>
+                     <span className={styles.tag}>
+                     <p>
+                       {allpost.j_tag}
+                     </p>
+                     <p >
+                       {allpost.e_tag}
+                     </p>
+                       </span>
+                     <div>
+                       <button onClick={(e)=>handleMylist(e)} id={ allpost.id }>
+                       < FaHeart className={allpost.flag ? styles.activeBtn : null} />
+                       </button>
+                       <button id={allpost.id} onClick={(e)=>handleLike(e)}>
+                         < AiOutlineStar/>
+                         {allpost.rate}
+                       </button>
+                     </div>
+                     <p className={styles.content}>{allpost.contents}</p>
+                     <Link href= {`/posts/${allpost.title}`}>
+                     <img  src={allpost.img}/>
+                   </Link>
+                   </div>
             )) : null}
             <div key={loginuser.id}>
               <h1>{loginuser.name}</h1>

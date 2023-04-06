@@ -1,3 +1,26 @@
+.description {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3vh;
+  align-items: center;
+  width: 85%;
+  background-color: var(--color-bg);
+  border-radius: 25px;
+  padding: 8%;
+  box-shadow: var(--box-shadow-regular);
+}
+
+.top {
+  padding-top: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.description p {
+  text-align: justify;
+  line-height: 2;
+}
+
 .map  {
   height: 70%;
   display: grid;
@@ -8,17 +31,33 @@
   height: 90vh;
 }
   
-.map figure {
+.pie div {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 .first_period { 
-  grid-area: 4 / 1 / 5 / 2; 
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  transform: translate(-50%, -50%);
 }
-.second_period { grid-area: 3 / 2 / 5 / 3; }
-.third_period { grid-area: 2 / 3 / 5 / 4; }
-.forth_period  { grid-area: 1 / 4 / 5 / 5; }
+.second_period { 
+  position: absolute;
+  top: 3%;
+  right: 0%;
+ }
+.third_period { 
+  position: absolute;
+  bottom: 5%;
+  left: 10%;
+ }
+.forth_period  { 
+  position: absolute;
+  bottom: 5%;
+  right: 0%;
+ }
 
 .map aside {
   height: 10vh;
@@ -26,19 +65,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.first_period aside {
-  background-color: orange;
-}
-.second_period aside {
-  background-color:blue;
-}
-.third_period aside {
-  background-color:violet;
-}
-.forth_period aside {
-  background-color:tomato;
 }
 
 .map a {
@@ -65,3 +91,21 @@
   margin: 0;
 }
 
+
+
+.pie {
+  position: relative;
+  height: 100vh;
+  width: 100vh;
+  padding-top: 10vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+/* .map_details{
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+} */

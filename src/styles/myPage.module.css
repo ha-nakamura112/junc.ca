@@ -1,3 +1,76 @@
 .activeBtn {
   color: red;
 }
+
+.todaylist {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3vh;
+  padding: 5%;
+  align-items: center;
+  justify-content: center;
+  width: 100vh;
+}
+
+.todaylist h1:first-child {
+  width: 60%;
+  padding-top: 3vh;
+}
+
+.add_form {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  padding: 3%;
+  border: 1px solid var(--color-bg);
+  border-radius: 25px;
+}
+
+.add_form input,
+.add_form button {
+  background-color: var(--color-white);
+  border: 0px none transparent;
+}
+
+.todo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 60%;
+  list-style-type: none;
+}
+
+.todo li {
+  display: flex;
+  column-gap: 2vh;
+}
+
+.goals, 
+.goal {
+  display: flex;
+  flex-direction: column;
+}
+
+.goals {
+  padding-top: 5vh;
+  width: 90%;
+  row-gap: 3vh;
+  align-items: flex-end;
+}
+
+.goal {
+  row-gap: 1vh;
+  padding:3%;
+  background-color: var(--color-bg);
+  border-radius: 25px;
+  width: 100%;
+}
+
+.goals button {
+  width: 30%;
+  padding: 4% 3%;
+  border: 1px solid var(--color-bg);
+  border-radius: 15px;
+
+}

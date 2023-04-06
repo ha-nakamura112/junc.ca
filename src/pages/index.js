@@ -6,29 +6,25 @@ const inter = Inter({ subsets: ['latin'] })
 
 
 export default function Home(){
-  const [showFlightPath, setShowFlightPath] = useState(false);
 
-  const handleAnimationEnd = () => {
-    setShowFlightPath(true);
-  };
 
 
   return (
-    <>
       <div  className={styles.main}>
         <div className={styles.sky}>
-          <div className={styles.cloud}></div>
-          <div className={styles.cloud2}></div>
-          <div className={styles.cloud3}></div>
-          <div className={styles.cloud_bottom}></div>
+          <img className={styles.sly__bg} src='../../data/imgs/home/sky.jpg'/>       
+          <div className={styles.cloud} /> 
+          <div className={styles.cloud1} /> 
+          <div className={styles.cloud2} /> 
+          <div className={styles.cloud3} /> 
+          <div className={styles.cloud4} /> 
+          <div className={styles.cloud5} /> 
+          <div className={styles.cloud6} /> 
           <div className={styles.plane}>
-            <img 
-            src='../../data/imgs/home/plane.png'
-            onAnimationEnd={handleAnimationEnd}
-            ></img>
+            <img  src='../../data/imgs/home/plane.png'></img>
           </div>
-          {showFlightPath && <div className="flight-path visible" />}
-          {!showFlightPath && <div className="flight-path" />}       <div className={styles.hometxt}>
+         <div className="flight-path" />
+         <div className={styles.hometxt}>
             <h1>Leap Abroad</h1>
           </div>
         </div>
@@ -80,6 +76,5 @@ export default function Home(){
           </div>
         </div> 
       </div>
-    </>
 )
 }

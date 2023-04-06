@@ -3,13 +3,16 @@ import styles from "../styles/Nav.module.css";
 import { CiLocationOn } from "react-icons/ci";
 import { BsEnvelopeOpen } from "react-icons/bs";
 import { FiPhone } from "react-icons/fi";
+import { useRouter } from 'next/router';
 
 
 export default function Footer(){
+  const router = useRouter();
   const loginFlag = false;
+  
   return (
     <>
-    <footer className={styles.main_footer}>
+    <footer className={router.pathname === "/common/login" || router.pathname === "/common/signup"  ? styles.main_footer_fix : router.pathname === "/common/login" ? styles.main_footer : styles.main_footer_color}>
         <div className={ styles.footer_about }>
           <figure>
             <img src="../../../data/imgs/home/logo2.jpeg"/>

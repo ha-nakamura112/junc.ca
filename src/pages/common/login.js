@@ -2,9 +2,11 @@ import { useState } from "react";
 import Link from 'next/link';
 import styles from "../../styles/Modal.module.css";
 import { useRouter } from "next/router.js";
+import { serverUrl } from "../common/config";
+console.log(serverUrl)
+
 
 export default function Login({ setLoginUser, loginuser }){
-  const server = 'http://localhost:3000';
   const[msg,setMsg] = useState('');
   const router = useRouter();
 //   function makeid(){
@@ -28,7 +30,7 @@ export default function Login({ setLoginUser, loginuser }){
         setMsg('please fill in the blanks');
         console.log("wrong")
     }else{
-        const apiUrlEndpoint = `${server}/api/login`;
+        const apiUrlEndpoint = `${serverUrl}/api/login`;
         const postData = {
             method: "Post",
             headers: { "Content-Type": "application/json" },
@@ -37,6 +39,7 @@ export default function Login({ setLoginUser, loginuser }){
             }),
           };
           const response = await fetch(apiUrlEndpoint, postData);
+          console.log(response)
           const res = await response.json();
           if(res.user[0]){
             setLoginUser(res.user[0]);
@@ -54,6 +57,7 @@ export default function Login({ setLoginUser, loginuser }){
   
   return(
       <div className={styles.modalBg}>
+                <img className={styles.login_bg} src="../../../data/imgs/home/IMG_0599.JPG"/>
           <div className={styles.modalLoginContent}>
               <div className={styles.closeBtn}>
                   <Link href="/">X</Link>
@@ -64,7 +68,7 @@ export default function Login({ setLoginUser, loginuser }){
                       {/* <input type='hidden' value={token} name="tokenCon"/> */}
                       {/* <input type="text" name="formChk" defaultValue="loginForm" hidden/> */}
                       <div>
-                          <label htmlFor="user">Email: </label>
+                          <label htmlFor="user">Username: </label>
                           <input type="text" name="user" placeholder="ユーザーネーム" />
                       </div>
                       <div>

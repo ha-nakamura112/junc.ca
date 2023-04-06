@@ -1,136 +1,106 @@
+
+
 .main {
   width: 100%;
 }
 
 .sky {
-  background-color: var(--color-blue-fifth); 
-  height: 80vh;
+  background-color: var(--color-blue); 
+  height: var(--regular-height);
+
   position: relative;
-  width: 100vh;
+  width: var(--regular-width);
   overflow: hidden;
 }
-/* 
-.plane img {
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: absolute;
-  bottom: 30px;
-  left: 0px;
-  width: 50vw;
-  animation-name: plane;
-  animation-duration: 3s;
-  animation-timing-function: linear;
-  animation-iteration-count:unset;
-} */
-
 
 .plane img{
   position: absolute;
   bottom: 0;
   left: 0;
   animation: plane 3s linear;
-  width: 50vw;
+  width: var(--regular-plane);
 }
-
+/* 
 .flight_path {
   position: absolute;
-  bottom: 20px;
+  bottom: 0;
   left: 0;
-  width: 0;
-  height: 2px;
-  background-color: #fff;
-  opacity: 0.5;
-  transition: width 3s linear;
-  z-index: 10;
-}
+  height: 100vh;
+  width: 50vh;
+  background-color: black;
+  opacity: 0.8;
+  transition: cloud 3s linear;
+} */
 
 
 .flight-path.visible {
   width: 100%;
 }
 
-.plane:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 2px;
-  height: 10px;
-  background-color: #fff;
-  transform-origin: top center;
-  animation: planeTrail 1.5s ease-out 1s forwards;
-  opacity: 0;
+.sly__bg {
+  width: 100%;
+  height: 100%;
+  filter: blur(3px);
+  border-bottom: 50px solid rgba(255, 255, 255, .4);
+  /* clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%); */
 }
-
-@keyframes fly {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(100%, -100%);
-  }
-}
-
-@keyframes planeTrail {
-  0% {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-  100% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-}
-
-
-
 
 .cloud {
   position: absolute;
-  width: 300px;
-  height: 150px;
-  background: var(--color-cloud);
-  border-radius:60% 60% 0 0;
-  bottom: 0;
+  bottom: 20px;
+  left: 0;
+  width: var(--regular-width);
+  height: 25px;
+  background: rgba(255, 255, 255, .2);
+}
+.cloud1 {
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  right: 25px;
+  width: var(--regular-width);
+  background-color: rgba(255, 255, 255, .8);
+  /* clip-path: polygon(0 100%, 100% 0, calc(100% - 0px) 100%, 0 100%); */
 }
 .cloud2 {
   position: absolute;
-  width: 300px;
-  height: 250px;
-  background: var(--color-white);
-  border-radius:60% 60% 0 0;
-  bottom: 0;
-  left: 180px;
+  bottom: 7px;
+  left: 0;
+  width: var(--regular-width);
+  height: 25px;
+  background: rgba(255, 255, 255, .4);
 }
 .cloud3 {
   position: absolute;
-  width: 300px;
-  height: 350px;
-  background: var(--color-white);
-  border-radius:50% 60% 0 0;
-  bottom: 0;
-  right: 0;
-}
-
-
-.cloud_bottom {
-  position: absolute;
-  bottom: 0;
+  bottom: 5px;
   left: 0;
-  width: 100vh;
-  height: 50px;
-  background: var(--color-cloud);
-  border-radius: 50% 50% 0 0 / 100px 100px 0 0;
+  width: var(--regular-width);
+  height: 25px;
+  background: rgba(255, 255, 255, .5);
 }
-
-@keyframes move {
-  0%, 100% {
-    transform: translate(-50%, 0%);
-  }
-  50% {
-    transform: translate(-50%, 10%);
-  }
+.cloud4 {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  width: var(--regular-width);
+  height: 25px;
+  background: rgba(255, 255, 255, .7);
+}
+.cloud5 {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: var(--regular-width);
+  height: 25px;
+  background: rgba(255, 255, 255, .8);
+}
+.cloud6 {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: var(--regular-width);
+  height: 25px;
+  background: rgba(255, 255, 255, .9);
 }
 
 
@@ -143,13 +113,6 @@
 .hometxt h1 {
   font-size: 28px;
 }
-/* 
-.homebg {
-  width: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
 
 
 @keyframes plane {
@@ -162,62 +125,51 @@
     left: calc(100% + 40px);
   }
 }
+@keyframes cloud {
+  0% {
+    bottom: -60px;
+    left: -60px;
+  }
+  100% {
+    bottom: calc(100% + 40px);
+    left: calc(100% + 40px);
+  }
+}
 
 .homemain {
   display: flex;
   flex-direction: column;
-  row-gap: 10vh;
-  align-items: center;
+  align-items: center; 
   justify-content: center;
-  padding-bottom: 20vh;
-  width: 95vh;
+  width: var(--regular-width);
 }
 
 .secmain {
-  padding-top: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 10vh;
-  height: 100%;
-  width: 90%;
 }
 
 .home_opt {
   display: flex;
-  column-gap: 5vw;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 70vh;
   overflow: hidden;
 }
 
 .home_opt > figure {
   position: relative;
-  height: 100%; 
-  width: 60%;
 }
 .home_opt img {
-  position: absolute;
-  width: 100%; 
-  height: 100%; 
+  position: absolute; 
   object-fit: contain;
 }
-
 .home_opt .coop1 {
-  left: -5vh;
-  top: -4rem;
-  width: 45vh;
   overflow: visible;
 }
 
 .home_opt .coop2 {
   overflow: hidden;
-  right: -4rem;
-  bottom:-60px;
-  width: 30vw;
-  height: 45vh;
   object-fit:cover;
   overflow: visible;
 }
@@ -232,9 +184,7 @@
   overflow: visible;
 }
 
-
 .home_opt .border {
-  border-top: 2px solid var(--color-yellow);
   height: 10px;
   width: 80%;
 }
@@ -243,45 +193,24 @@
 .home_opt:nth-child(2) .border{
   border-top: 2px solid var(--color-green);
 }
+
 .home_opt:nth-child(3) .border{
     border-top: 2px solid var(--color-red);
 }
 
-
-.home_opt .wh1 {
-  height: 35vh;
-  left: -8vh;
-  top:0;
-}
-
 .home_opt .wh2 {
-  right: -4rem;
-  bottom: -6vh;
-  height: 55vh;
-  width: 65vw;
   object-fit:cover;
-  object-position: 50% ;
-  overflow: hidden;
+  object-position: 30% ;
 }
 
 .home_opt .canada1 {
-  left: 10rem;
-  top:6vh;
   object-fit:contain;
-  height: 45vh;
   overflow: visible;
 }
 
 .home_opt .canada2 {
-  height: 60vh;
   object-fit:contain;
   position: absolute;
-  top: -120px;
-  left: -120px;
-}
-
-.home_opt:nth-child(3) p {
-  font-size: 20px;
 }
 
 .home_opt a {
@@ -294,7 +223,6 @@
   align-items: center;
   justify-content: center;
   width:fit-content;
-  height: 35vh;
 }
 
 .home_opt div:hover{
@@ -306,8 +234,183 @@
 .home_opt p {
   color: lightslategrey;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 21px;
-  width: 36vh;
   text-align: center;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .homemain {
+    row-gap: 10vh;
+    padding-bottom: 20vh;
+  }
+  
+  .secmain {
+    padding-top: 10vh;
+    row-gap: 10vh;
+    height: 100%;
+    width: 90%;
+  }
+  
+  .home_opt {
+    column-gap: 5vw;
+    width: 100%;
+    height: 70vh;
+  }
+  
+  .home_opt > figure {
+    height: 100%; 
+    width: 60%;
+  }
+  .home_opt img {
+    width: 100%; 
+    height: 100%; 
+  }
+  .home_opt .coop1 {
+    left: -5vh;
+    top: -4rem;
+    width: 45vh;
+  }
+  
+  .home_opt .coop2 {
+    right: -4rem;
+    bottom:-60px;
+    width: 30vw;
+    height: 45vh;
+  }
+
+  .home_opt .border {
+    height: 10px;
+    width: 80%;
+  }
+
+
+  .home_opt .wh1 {
+    height: 35vh;
+    left: -8vh;
+    top:0;
+  }
+  
+  .home_opt .wh2 {
+    right: -.3rem;
+    bottom: -6vh;
+    height: 55vh;
+    width: 45vw;
+  }
+  
+  .home_opt .canada1 {
+    left: 10rem;
+    top:6vh;
+    height: 45vh;
+  }
+  
+  .home_opt .canada2 {
+    height: 60vh;
+    top: -120px;
+    left: -120px;
+  }
+  
+  .home_opt:nth-child(3) p {
+    font-size: 20px;
+  }
+  
+  .home_opt > div a{
+    height: 35vh;
+  }
+  
+  .home_opt p {
+    font-weight: 500;
+    font-size: 21px;
+    width: 36vh;
+  }
+  
+}
+
+@media screen and (min-width: 768px) {
+  .homemain {
+    row-gap: 10vh;
+    padding-bottom: 20vh;
+  }
+  
+  .secmain {
+    padding-top: 10vh;
+    row-gap: 10vh;
+    height: 100%;
+    width: 95%;
+  }
+  
+  .home_opt {
+    flex-direction: column;
+    column-gap: 5vw;
+    width: 100%;
+    height: 70vh;
+  }
+
+  .home_opt:nth-child(2) {
+    flex-direction: column;
+  }
+  
+  .home_opt > figure {
+    height: 100%; 
+    width: 100%;
+  }
+
+  .home_opt .coop1 {
+    left: -5vh;
+    top: -3rem;
+    width: 35vh;
+  }
+  
+  .home_opt .coop2 {
+    right: -2rem;
+    bottom:-20px;
+    width: 16vw;
+    height: 23vh;
+  }
+  
+  .home_opt .border {
+    height: 10px;
+    width: 80%;
+  }
+  
+  
+  .home_opt .wh1 {
+    height: 35vh;
+    left: -2vh;
+    top:-10vh;
+  }
+  
+  .home_opt .wh2 {
+    right: -.3rem;
+    bottom: 0vh;
+    height: 30vh;
+    width: 18vw;
+  }
+  
+  .home_opt .canada1 {
+    left: 15rem;
+    top:8vh;
+    height: 45vh;
+  }
+  
+  .home_opt .canada2 {
+    height: 50vh;
+    top: -100px;
+    left: -60px;
+  }
+  
+  .home_opt:nth-child(3) p {
+    font-size: 20px;
+  }
+  
+  .home_opt > div a{
+    height: 35vh;
+  }
+  
+  .home_opt p {
+    font-weight: 500;
+    font-size: 21px;
+    width: 36vh;
+  }
+  
 }
